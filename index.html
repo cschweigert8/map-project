@@ -11,7 +11,7 @@
     <div class="wrapper">
 
         <!-- Sidebar -->
-        <div class="sidebar">
+        <div id="sidebar">
             <div class="sidebar-header">
                 <h3>Arizona Outdoor Recreation</h3>
             </div>
@@ -32,12 +32,14 @@
             </ul>
         </div>
     
-        <!-- Page Content 
-        -->
         <div id="content">
             <div id="navToggle">
-                <button type="button" class="btn btn-default">
+                <button id="showNavButton" type="button" class="btn" onclick="showNavMenu()">
                         <span class="glyphicon glyphicon-triangle-right"></span>
+                </button>
+
+                <button id="hideNavButton" type="button" class="btn" onclick="hideNavMenu()">
+                        <span class="glyphicon glyphicon-triangle-left"></span>
                 </button>
             </div>
             <div id="map"></div>

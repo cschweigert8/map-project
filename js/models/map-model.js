@@ -7,13 +7,8 @@ var Place = function(name, lat, lng, activities) {
     this.activities = ko.observableArray(activities);
     this.showPlace = ko.observable(true);
 
-/*     toggleShowPlace = function(){
-        console.log("toggle show place");
-        showPlace(false);
-    } */
 }
- 
-// The view model is an abstract description of the state of the UI, but without any knowledge of the UI technology (HTML)
+
 var viewModel = {
     places: [
         new Place("Grand Canyon National Park", 36.1069652, -112.1129972, ["Hiking", "Camping", "Swimming", "Biking"]),

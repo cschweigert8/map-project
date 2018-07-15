@@ -11,7 +11,7 @@ html, body{
     align-items: stretch;
 }
 
-.sidebar{
+#sidebar{
     /* display: flex; */
     min-width: 350px;
     max-width: 350px;
@@ -47,13 +47,8 @@ html, body{
 
 #map { height: 100%; }
 
-@media only screen and (max-width : 1200px) {
-
-}
-
-
 @media only screen and (max-width : 700px) {
-    .sidebar{
+    #sidebar{
         min-width: 0px;
         max-width: 0px;
         min-height: 0vh;
@@ -61,19 +56,12 @@ html, body{
     }
 
     #navToggle{
-        position: relative;
-        display: block;
-        float: left;
+        position: absolute;
+        display: inline;
+        bottom: 0;
+        z-index: 5;
     }
 
-    #navToggle button{
-        position:absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-    }
+    #hideNavButton{ display: none;}
 
-}
-
-@media only screen and (max-width : 500px) {
 }

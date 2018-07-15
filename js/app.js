@@ -1,6 +1,7 @@
 var map;
 var markers = [];
 
+// This function initializes everything on page load.
 function initMap() {
     // ** Create the map **
     map = new google.maps.Map(document.getElementById('map'), {
@@ -98,6 +99,10 @@ function openInfoWindowForClickedPlace(name){
     }
 }
 
+// This functiion loops through all of the places in the array
+// and checks if it's activity array includes the selected activity.
+// If there is a match, that place is displayed, and if there is not
+// a match, the place is hidden from the list and marker removed from map.
 function filterPlacesList(activity){
     for (var i = 0; i < viewModel.places.length; i++){
         if(!viewModel.places[i].activities().includes(String(activity))){ 
@@ -110,14 +115,38 @@ function filterPlacesList(activity){
     }
 }
 
+// This function is called to hide the map marker when the place
+// does not have an activity that matches the filter.
 function hideMarker(title) {
     for (var i = 0; i < markers.length; i++) {
       if(title === markers[i].title){markers[i].setMap(null);}
     }
 }
 
+// This function is called to show the map marker when the place
+// matches an activity chosen on the filter.
 function showMarker(title) {
     for (var i = 0; i < markers.length; i++) {
       if(title === markers[i].title){markers[i].setMap(map);}
     }
+}
+
+// This function sets the style of the navigation window
+// when the show button is clicked.
+function showNavMenu() {
+    document.getElementById('sidebar').style.display = 'block';
+    document.getElementById('sidebar').style.minWidth = '300px';
+    document.getElementById('sidebar').style.maxWidth = '300px';
+    document.getElementById('showNavButton').style.display = 'none';
+    document.getElementById('hideNavButton').style.display = 'block';
+}
+
+// This function sets the style of the navigation window
+// when the hide button is clicked.
+function hideNavMenu() {
+    document.getElementById('sidebar').style.display = 'none';
+    document.getElementById('sidebar').style.minWidth = '0px';
+    document.getElementById('sidebar').style.maxWidth = '0px';
+    document.getElementById('showNavButton').style.display = 'block';
+    document.getElementById('hideNavButton').style.display = 'none';
 }
