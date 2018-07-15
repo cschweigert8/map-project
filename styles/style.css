@@ -4,8 +4,6 @@ html, body{
     padding: 0; 
 }
 
-#map { height: 100%; }
-
 .wrapper {
     display: flex;
     width: 100%;
@@ -13,9 +11,26 @@ html, body{
 }
 
 #sidebar {
+    display: flex;
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
 }
 
+.sidebar-nav {
+    position: absolute;
+    top: 50px;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+  }
+
 #content { width: 100%; }
+
+#map { height: 100%; }
