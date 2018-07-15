@@ -31,6 +31,7 @@ function initMap() {
         markers.push(marker);
         // Add listener to open the infoWindow for the clicked marker
         marker.addListener('click', function() {
+            this.setAnimation(google.maps.Animation.BOUNCE);
             populateInfoWindow(this, infowindow);
         });
     }
@@ -60,6 +61,7 @@ function populateInfoWindow(marker, infowindow) {
         // Clear marker object when window is closed
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
+            marker.setAnimation(null);
         });
 
         // Get the formatted address for the place
@@ -83,6 +85,8 @@ function populateInfoWindow(marker, infowindow) {
 
         // open infoWindow
         infowindow.open(map, marker);
+        // Turn off bounce animation
+        marker.setAnimation(null);
     }
 }
 
