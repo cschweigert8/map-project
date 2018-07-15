@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="styles/style.css">
@@ -15,6 +15,7 @@
             <div class="sidebar-header">
                 <h3>Arizona Outdoor Recreation</h3>
             </div>
+            <!-- Dropdown Menu for Filter -->
             <div class="dropdown">
                     <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
                         Select activity to filter
@@ -27,6 +28,7 @@
                     </ul>
             </div>
 
+            <!-- List of Places -->
             <ul class="list-group" data-bind="foreach: places">
                 <li class="list-group-item" data-bind="text: name, click: function(data, event) { openInfoWindowForClickedPlace(name(), data, event) }, visible: showPlace"></li>
             </ul>
@@ -34,23 +36,25 @@
     
         <div id="content">
             <div id="navToggle">
+                <!-- The navToggle buttons are initially hidden and displayed with a media query for smaller devices -->
                 <button id="showNavButton" type="button" class="btn" onclick="showNavMenu()">
                         <span class="glyphicon glyphicon-triangle-right"></span>
                 </button>
 
+                <!-- The hideNavButton is hidden and displayed when the sidebar is showing -->
                 <button id="hideNavButton" type="button" class="btn" onclick="hideNavMenu()">
                         <span class="glyphicon glyphicon-triangle-left"></span>
                 </button>
             </div>
+            <!-- Display the map -->
             <div id="map"></div>
         </div>
-    
-    
-        
     </div> 
+
+    <!-- UPDATE TO INCLUDE YOUR API KEY HERE -->
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0fu4D0avhvTlwvq8QEy9mUvK5KNYsoJA&v=3&callback=initMap">
-   </script>
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&v=3&callback=initMap">
+    </script>
     <script src="js/lib/knockout-3.4.2.js"></script>
     <script src="js/app.js"></script>
     <script src="js/models/map-model.js"></script>
