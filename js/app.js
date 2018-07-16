@@ -116,7 +116,8 @@ function populateInfoWindow(marker, infowindow) {
         // open infoWindow
         infowindow.open(map, marker);
         // Turn off bounce animation
-        marker.setAnimation(null);    }
+        marker.setAnimation(null);
+    }
 }
 
 // This function loops through the array of markers to find the marker
