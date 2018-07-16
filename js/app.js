@@ -185,6 +185,7 @@ function hideNavMenu() {
     document.getElementById('hideNavButton').style.display = 'none';
 }
 
+// This function is to handle the Google Maps API call error
 window.mapsAPIError = function(){
     window.alert("I'm sorry! There was an error and the Google Map failed to load :(");
   };
