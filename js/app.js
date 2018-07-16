@@ -1,6 +1,7 @@
 var map;
 var markers = [];
 
+
 // This function initializes everything on page load.
 function initMap() {
     // ** Create the map **
@@ -31,6 +32,7 @@ function initMap() {
         markers.push(marker);
         // Add listener to open the infoWindow for the clicked marker
         marker.addListener('click', function() {
+            this.setAnimation(google.maps.Animation.BOUNCE);
             populateInfoWindow(this, infowindow);
         });
     }
@@ -60,6 +62,7 @@ function populateInfoWindow(marker, infowindow) {
         // Clear marker object when window is closed
         infowindow.addListener('closeclick', function() {
             infowindow.marker = null;
+            marker.setAnimation(null);
         });
 
         // Get the formatted address for the place
@@ -70,20 +73,50 @@ function populateInfoWindow(marker, infowindow) {
                     // Geocoder returned successfully with a result
                     // Add address to the infoWindow
                     address = results[1].formatted_address;
-                    infowindow.setContent('<div>' + marker.title + '</div>' + '</br>' + '<div>' + address + '</div>');
+                    infowindow.setContent('<div><h4>' + marker.title + '</h4></div>' + '</br>' + '<div>' + address + '</div>');
                 } else {
                     // Geocoder didn't error out but didn't find any address for the place
-                    infowindow.setContent('<div>' + marker.title + '</div>' + '<div>No Results Found</div>');
+                    infowindow.setContent('<div><h4>' + marker.title + '</h4></div>' + '<div>No Results Found</div>');
                 }
             } else {
                 // Geocoder encountered an error
-                infowindow.setContent('<div>' + marker.title + '</div>' + '<div>Geocoder failed! Error: ' + status + '</div>');
+                infowindow.setContent('<div><h4>' + marker.title + '</h4></div>' + '<div>Geocoder failed! Error: ' + status + '</div>');
             }
             });
 
+        // Get place description from WikiPedia
+        var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+marker.title+"&format=json";
+        var description;
+
+        // Error handling for wikipedia API call
+        var requestTimeout = setTimeout(function(){
+            infowindow.setContent(infowindow.getContent() + "</br><div>Sorry! There was an error getting description.</div>");
+        }, 3000);
+
+        // Run ajax function for wikipedia API request
+        $.ajax({
+            url: wikiURL,
+            dataType: "jsonp",
+            success: function( response ){
+                // Check to make sure the request isn't undefined or blank because
+                // some places don't have a description in wikipedia.
+                if(response[2][0] != null && response[2][0] != ""){
+                    // If there is a response, add the description to the info window
+                    description = response[2][0];
+                    infowindow.setContent(infowindow.getContent() + "</br><div>"+description+"</div>");
+                }else{
+                    // if there is no description found for this place, tell the user
+                    infowindow.setContent(infowindow.getContent() + "</br><div>Sorry! No description was found for this place!</div>");
+                }
+                //error handling
+                clearTimeout(requestTimeout);
+            }
+        });
+
         // open infoWindow
         infowindow.open(map, marker);
-    }
+        // Turn off bounce animation
+        marker.setAnimation(null);    }
 }
 
 // This function loops through the array of markers to find the marker
@@ -150,3 +183,7 @@ function hideNavMenu() {
     document.getElementById('showNavButton').style.display = 'block';
     document.getElementById('hideNavButton').style.display = 'none';
 }
+
+window.mapsAPIError = function(){
+    window.alert("I'm sorry! There was an error and the Google Map failed to load :(");
+  };
